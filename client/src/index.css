@@ -7,6 +7,7 @@
 
 /* font-family: 'Playfair Display', serif; */
 /* font-family: 'Poppins', sans-serif;  */
+
 /* navbar css */
 .navbar {
   font-family: "Poppins", sans-serif;
@@ -76,4 +77,14 @@
 .pnf-btn:hover {
   background-color: black;
   color: white;
+}
+
+/* about_us css  */
+.display {
+  margin: 0;
+  padding: 0;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
