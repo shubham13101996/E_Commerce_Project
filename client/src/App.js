@@ -1,11 +1,21 @@
 import "./App.css";
-import Layouts from "./components/Layout/Layouts";
-
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Policy from "./pages/Policy";
+import PageNotFound from "./pages/PageNotFound";
 function App() {
   return (
-    <Layouts>
-      <div className="">E-Commerce App</div>
-    </Layouts>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/policy" element={<Policy />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </>
   );
 }
 
