@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { GiShoppingBag } from "react-icons/gi";
 
 const Header = () => {
   return (
