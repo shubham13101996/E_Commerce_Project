@@ -8,14 +8,14 @@ export const registerController = async (req, res) => {
 
     if (!name || !password || !email || !phone || !address) {
       return res.send({
-        error: "ALL FIELDS ARE MANDATORY",
+        message: "ALL FIELDS ARE MANDATORY",
       });
     }
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res.status(200).send({
-        success: true,
+        success: false,
         message: "Already registered Please login ",
       });
     }
