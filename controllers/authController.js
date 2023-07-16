@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address, answer } = req.body;
 
-    if (!name || !password || !email || !phone || !address) {
+    if (!name || !password || !email || !phone || !address || !answer) {
       return res.send({
         message: "ALL FIELDS ARE MANDATORY",
       });
@@ -28,6 +28,7 @@ export const registerController = async (req, res) => {
       password: hashedPassword,
       phone,
       address,
+      answer,
     }).save();
     res.status(201).send({
       success: true,

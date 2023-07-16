@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/register", registerController);
 router.post("/login", loginController);
-router.post("/forget-password", forgetPasswordController);
+router.post("/forgot-password", forgetPasswordController);
 router.get("/validate", Validation, isAdmin, validationController);
 router.get("/user-auth", Validation, (req, res) => {
   res.status(200).send({

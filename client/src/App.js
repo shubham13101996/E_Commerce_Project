@@ -9,6 +9,7 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 import DashBoard from "./pages/user/DashBoard";
 import Protected from "./components/routes/Protected";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 function App() {
   return (
     <>
@@ -17,7 +18,7 @@ function App() {
         <Route path="/dashboard" element={<Protected />}>
           <Route path="" element={<DashBoard />} />
         </Route>
-
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
