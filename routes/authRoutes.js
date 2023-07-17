@@ -18,4 +18,9 @@ router.get("/user-auth", Validation, (req, res) => {
     ok: true,
   });
 });
+router.get("/admin-auth", Validation, isAdmin, (req, res) => {
+  res.status(200).send({
+    ok: true,
+  });
+});
 export default router;

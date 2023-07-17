@@ -10,13 +10,18 @@ import Login from "./pages/Auth/Login";
 import DashBoard from "./pages/user/DashBoard";
 import Protected from "./components/routes/Protected";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import AdminRoutes from "./components/routes/AdminRoutes";
+import AdminDashboard from "./Admin/AdminDashboard";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Protected />}>
-          <Route path="" element={<DashBoard />} />
+          <Route path="user" element={<DashBoard />} />
+        </Route>
+        <Route path="/dashboard" element={<AdminRoutes />}>
+          <Route path="admin" element={<AdminDashboard />} />
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/register" element={<Register />} />
