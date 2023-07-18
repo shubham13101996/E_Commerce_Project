@@ -1,6 +1,7 @@
 import express from "express";
 import formidable from "express-formidable";
 import {
+  ProductPhotoController,
   createProductController,
   getProductController,
   getSingleProductController,
@@ -17,8 +18,13 @@ router.post(
   createProductController
 );
 
+// get product
 router.get("/get-product", getProductController);
 
+// get single product
 router.get("/get-product/:slug", getSingleProductController);
+
+// get product photo
+router.get("/product-photo/:pid", ProductPhotoController);
 
 export default router;
