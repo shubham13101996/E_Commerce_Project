@@ -6,17 +6,28 @@ import {
   deleteProductController,
   getProductController,
   getSingleProductController,
+  updateProductController,
 } from "../controllers/productController.js";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
-
+// create product
 router.post(
   "/create-product",
   Validation,
   isAdmin,
   formidable(),
   createProductController
+);
+
+// update product
+
+router.put(
+  "/update-product/:pid",
+  Validation,
+  isAdmin,
+  formidable(),
+  updateProductController
 );
 
 // get product
