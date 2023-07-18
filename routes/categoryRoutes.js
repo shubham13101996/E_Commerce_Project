@@ -1,7 +1,9 @@
 import express from "express";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
 import {
+  categoryController,
   createCategoryController,
+  singleCategoryController,
   updateCategoryController,
 } from "../controllers/categoryController.js";
 
@@ -14,5 +16,10 @@ router.put(
   isAdmin,
   updateCategoryController
 );
+//  all category lists
+router.get("/get-category", categoryController);
+
+// single category list
+router.get("/single-category/:slug", singleCategoryController);
 
 export default router;
