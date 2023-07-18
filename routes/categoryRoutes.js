@@ -3,6 +3,7 @@ import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
 import {
   categoryController,
   createCategoryController,
+  deleteCategoryController,
   singleCategoryController,
   updateCategoryController,
 } from "../controllers/categoryController.js";
@@ -21,5 +22,13 @@ router.get("/get-category", categoryController);
 
 // single category list
 router.get("/single-category/:slug", singleCategoryController);
+
+// delete category
+router.delete(
+  "/delete-category/:id",
+  Validation,
+  isAdmin,
+  deleteCategoryController
+);
 
 export default router;
