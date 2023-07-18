@@ -48,3 +48,48 @@ export const createProductController = async (req, res) => {
     });
   }
 };
+
+export const getProductController = async (req, res) => {
+  try {
+    const products = await productModel
+      .find({})
+      .populate("category")
+      .select("-photo")
+      .limit(12)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      countTotal: products.length,
+      message: "Products Fetched Successfully",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error While Getting the Products",
+      error: error.message,
+    });
+  }
+};
+
+export const getSingleProductController = async (req, res) => {
+  try {
+    const product = await productModel
+      .findOne({ slug: req.params.slug })
+      .select("-photo")
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      message: "Getting Product SuccessFully",
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error While Getting The Products",
+      error: error.message,
+    });
+  }
+};
