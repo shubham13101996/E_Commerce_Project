@@ -12,6 +12,9 @@ import Protected from "./components/routes/Protected";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import AdminRoutes from "./components/routes/AdminRoutes";
 import AdminDashboard from "./Admin/AdminDashboard";
+import CreateCategory from "./Admin/CreateCategory";
+import CreateProduct from "./Admin/CreateProduct";
+import Users from "./Admin/Users";
 function App() {
   return (
     <>
@@ -22,6 +25,9 @@ function App() {
         </Route>
         <Route path="/dashboard" element={<AdminRoutes />}>
           <Route path="admin" element={<AdminDashboard />} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />
+          <Route path="admin/users" element={<Users />} />
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/register" element={<Register />} />
