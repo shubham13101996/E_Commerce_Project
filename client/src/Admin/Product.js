@@ -22,14 +22,14 @@ const Product = () => {
     getAllProducts();
   }, []);
   return (
-    <Layouts className="container">
+    <Layouts title={"Dashboard - All products"} className="container">
       <div className="row">
         <div className="col-md-3">
           <AdminMenu />
         </div>
         <div className="col-md-9">
           <h1 className="text-center">All Products List</h1>
-          <div className="d-flex">
+          <div className="d-flex flex-wrap">
             {products?.map((product) => (
               <Link
                 className="product-link"
