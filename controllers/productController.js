@@ -1,7 +1,7 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
 import fs from "fs";
-import { count } from "console";
+import { count, log } from "console";
 
 // creating product at the admin side controller
 export const createProductController = async (req, res) => {
@@ -283,6 +283,31 @@ export const searchController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in search the product",
+      error,
+    });
+  }
+};
+
+export const relatedProductController = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await productModel
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Displaying Product Detail",
       error,
     });
   }

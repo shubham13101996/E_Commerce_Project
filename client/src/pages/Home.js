@@ -193,7 +193,7 @@ const Home = () => {
                   setPage(page + 1);
                 }}
               >
-                {loading ? "loading..." : "loadmore"}
+                {loading ? "Loading..." : "Load more"}
               </button>
             )}
           </div>
