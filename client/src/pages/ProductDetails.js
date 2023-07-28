@@ -34,7 +34,7 @@ const ProductDetails = () => {
     }
   };
   return (
-    <Layouts>
+    <Layouts title={"Page - Product Detail "}>
       <div className="row container mt-3">
         <div className="col-md-6">
           <img
