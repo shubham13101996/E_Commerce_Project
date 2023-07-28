@@ -6,6 +6,7 @@ import {
   deleteProductController,
   getProductController,
   getSingleProductController,
+  productFilterController,
   updateProductController,
 } from "../controllers/productController.js";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
@@ -42,4 +43,7 @@ router.get("/product-photo/:pid", ProductPhotoController);
 // delete product
 router.delete("/delete-product/:pid", deleteProductController);
 
+// filter product
+
+router.post("/product-filters", productFilterController);
 export default router;
