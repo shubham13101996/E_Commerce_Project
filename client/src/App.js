@@ -20,12 +20,14 @@ import Orders from "./pages/user/Orders";
 import Product from "./Admin/Product";
 import UpdateProduct from "./Admin/UpdateProduct";
 import Search from "./pages/user/Search";
+import ProductDetails from "./pages/ProductDetails";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/product/:slug" element={<ProductDetails />} />
 
         <Route path="/dashboard" element={<Protected />}>
           <Route path="user" element={<DashBoard />} />

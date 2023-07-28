@@ -4,6 +4,7 @@ import { useAuth } from "../context/auth";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -13,6 +14,8 @@ const Home = () => {
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   // get all categories
   const getAllCategory = async () => {
@@ -168,7 +171,12 @@ const Home = () => {
                   </p>
                   <p className="card-text">$ {product.price}</p>
 
-                  <button className="btn btn-primary ms-1">More Details</button>
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${product.slug}`)}
+                  >
+                    More Details
+                  </button>
                   <button className="btn btn-secondary ms-1">
                     ADD TO CART
                   </button>
