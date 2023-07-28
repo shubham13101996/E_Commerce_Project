@@ -9,6 +9,7 @@ import {
   productCountController,
   productFilterController,
   productListController,
+  searchController,
   updateProductController,
 } from "../controllers/productController.js";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
@@ -54,4 +55,7 @@ router.get("/product-count", productCountController);
 
 // per page product
 router.get("/product-list/:page", productListController);
+
+// search product
+router.get("/search/:keyword", searchController);
 export default router;
