@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import Layouts from "../components/Layout/Layouts";
 import { useAuth } from "../context/auth";
 import axios from "axios";
-import { Button, Checkbox, Radio } from "antd";
+import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 const Home = () => {
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // get all categories
   const getAllCategory = async () => {
@@ -25,12 +28,20 @@ const Home = () => {
 
   useEffect(() => {
     getAllCategory();
+    getTotal();
   }, []);
 
   // get product
   const getAllProducts = async () => {
-    const { data } = await axios.get("api/v1/product/get-product");
-    setProducts(data.products);
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts(data.products);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -67,6 +78,36 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  // get total count
+  const getTotal = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get("/api/v1/product/product-count");
+      setLoading(false);
+      setTotal(data?.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // loadmore functionality
+  const loadMore = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts([...products, ...data?.products]);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (page === 1) return;
+    loadMore();
+  }, [page]);
 
   return (
     <Layouts title={"Best Offer - shop now!!"}>
@@ -134,6 +175,19 @@ const Home = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="m-2 p-3">
+            {products && products.length < total && (
+              <button
+                className="btn btn-warning "
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? "loading..." : "loadmore"}
+              </button>
+            )}
           </div>
         </div>
       </div>

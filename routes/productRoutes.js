@@ -6,7 +6,9 @@ import {
   deleteProductController,
   getProductController,
   getSingleProductController,
+  productCountController,
   productFilterController,
+  productListController,
   updateProductController,
 } from "../controllers/productController.js";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
@@ -46,4 +48,10 @@ router.delete("/delete-product/:pid", deleteProductController);
 // filter product
 
 router.post("/product-filters", productFilterController);
+
+// pagination count product
+router.get("/product-count", productCountController);
+
+// per page product
+router.get("/product-list/:page", productListController);
 export default router;

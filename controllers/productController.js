@@ -1,6 +1,9 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
 import fs from "fs";
+import { count } from "console";
+
+// creating product at the admin side controller
 export const createProductController = async (req, res) => {
   try {
     const { name, slug, description, price, category, quantity, shipping } =
@@ -49,6 +52,7 @@ export const createProductController = async (req, res) => {
   }
 };
 
+// getting product controller
 export const getProductController = async (req, res) => {
   try {
     const products = await productModel
@@ -73,6 +77,7 @@ export const getProductController = async (req, res) => {
   }
 };
 
+// geting single product controller
 export const getSingleProductController = async (req, res) => {
   try {
     const product = await productModel
@@ -94,6 +99,7 @@ export const getSingleProductController = async (req, res) => {
   }
 };
 
+// adding photo to product controller
 export const ProductPhotoController = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.pid).select("photo");
@@ -111,6 +117,7 @@ export const ProductPhotoController = async (req, res) => {
   }
 };
 
+// delete Product Controller
 export const deleteProductController = async (req, res) => {
   try {
     await productModel.findByIdAndDelete(req.params.pid).select("-photo");
@@ -127,6 +134,8 @@ export const deleteProductController = async (req, res) => {
     });
   }
 };
+
+// update product controller
 
 export const updateProductController = async (req, res) => {
   try {
@@ -180,6 +189,8 @@ export const updateProductController = async (req, res) => {
   }
 };
 
+// product filter controller
+
 export const productFilterController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
@@ -201,6 +212,49 @@ export const productFilterController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error while filtering the product",
+      error,
+    });
+  }
+};
+
+// product count
+export const productCountController = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in pagination ",
+      error,
+    });
+  }
+};
+
+// per page product count
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 3;
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in getting per page product",
       error,
     });
   }
