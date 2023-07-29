@@ -1,13 +1,26 @@
 import React from "react";
 import Layouts from "../components/Layout/Layouts";
 import { useCart } from "../context/cart";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 const CartPage = () => {
   const [cart, setCart] = useCart();
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
+
+  const deleteCartItem = async (pid) => {
+    try {
+      let myCart = [...cart];
+      let index = myCart.findIndex((item) => item._id === pid);
+      myCart.splice(index, 1);
+      setCart(myCart);
+      localStorage.setItem("cart", JSON.stringify(myCart));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layouts title={"Cart - Ecommerce App"}>
       <div className="container">
@@ -44,11 +57,22 @@ const CartPage = () => {
                   <p>{pro.name}</p>
                   <p>{pro.description.substring(0, 30)}</p>
                   <p>{pro.name}</p>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteCartItem(pro._id)}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-          <div className="col-md-4">Checkout || Payment</div>
+          <div className="col-md-4 text-center">
+            <h2>CART SUMMARY</h2>
+            <p>Total || Checkout || Payment</p>
+            <hr />
+            <h4>Total:</h4>
+          </div>
         </div>
       </div>
     </Layouts>
