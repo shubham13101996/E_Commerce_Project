@@ -1,7 +1,8 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
+import categoryModel from "../models/categoryModel.js";
+
 import fs from "fs";
-import { count, log } from "console";
 
 // creating product at the admin side controller
 export const createProductController = async (req, res) => {
@@ -308,6 +309,26 @@ export const relatedProductController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in Displaying Product Detail",
+      error,
+    });
+  }
+};
+
+// get product by category
+
+export const productController = async (req, res) => {
+  try {
+    const category = await categoryModel.findOne({ slug: req.params.slug });
+    const products = await productModel.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error in Getting category wise product",
       error,
     });
   }

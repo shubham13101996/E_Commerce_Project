@@ -160,7 +160,7 @@ const Home = () => {
                 style={{ width: "18rem" }}
               >
                 <img
-                  src={`/api/v1/product/product-photo/${product._id}`}
+                  src={`/api/v1/product/product-photo/${product?._id}`}
                   className="card-img-top"
                   alt="product-photo"
                 />
@@ -173,7 +173,7 @@ const Home = () => {
 
                   <button
                     className="btn btn-primary ms-1"
-                    onClick={() => navigate(`/product/${product.slug}`)}
+                    onClick={() => navigate(`/product/${product?.slug}`)}
                   >
                     More Details
                   </button>
