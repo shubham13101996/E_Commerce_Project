@@ -9,6 +9,23 @@ const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
+  //   total price of items in cart
+  const totalPrice = () => {
+    try {
+      let total = 0;
+      cart?.map((item) => {
+        total = total + item.price;
+      });
+      return total.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //   remove item from cart
   const deleteCartItem = async (pid) => {
     try {
       let myCart = [...cart];
@@ -56,7 +73,7 @@ const CartPage = () => {
                 <div className="col-md-8">
                   <p>{pro.name}</p>
                   <p>{pro.description.substring(0, 30)}</p>
-                  <p>{pro.name}</p>
+                  <p> $ {pro.price}</p>
                   <button
                     className="btn btn-danger"
                     onClick={() => deleteCartItem(pro._id)}
@@ -71,7 +88,7 @@ const CartPage = () => {
             <h2>CART SUMMARY</h2>
             <p>Total || Checkout || Payment</p>
             <hr />
-            <h4>Total:</h4>
+            <h4>Total: {totalPrice()}</h4>
           </div>
         </div>
       </div>
