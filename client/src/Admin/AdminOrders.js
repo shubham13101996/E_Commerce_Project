@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from "react";
-import UserMenu from "../../components/Layout/UserMenu";
-import Layouts from "../../components/Layout/Layouts";
-import axios from "axios";
-import { useAuth } from "../../context/auth";
-import moment from "moment";
-const Orders = () => {
-  const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
-  const getOrders = async (req, res) => {
-    try {
-      const { data } = await axios.get("/api/v1/auth/orders");
-      setOrders(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+import React, { useEffect, useState } from 'react'
+import AdminMenu from '../components/Layout/AdminMenu'
+import Layouts from '../components/Layout/Layouts'
+import { useAuth } from '../context/auth';
+import moment from 'moment';
+import axios from 'axios';
 
-  useEffect(() => {
-    if (auth?.token) getOrders();
-  }, [auth?.token]);
+const AdminOrders = () => {
+const [status,setStatus]=useState(["Not Process", "Processing", "Shipped", "Delivered", "Cancel"]);
+const [changeStatus,setChangeStatus]= useState('')
+const [orders, setOrders] = useState([]);
+const [auth, setAuth] = useAuth();
+const getOrders = async (req, res) => {
+  try {
+    const { data } = await axios.get("/api/v1/auth/all-orders");
+    setOrders(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+useEffect(() => {
+  if (auth?.token) getOrders();
+}, [auth?.token]);
   return (
-    <Layouts title={"Your Order"}>
-      <div className="container p-3 m-3">
-        <div className="row">
-          <div className="col-md-3">
-            <UserMenu />
-          </div>
-          <div className="col-md-9">
-            <h1 className="text-center">All Orders</h1>
+   <Layouts title={"Admin - All Orders"}>
+     <div className='row'>
+        <div className='col-md-3'>
+            <AdminMenu/>
+        </div>
+        <div className='col-md-9'>
+            <h1 className='text-center'>All Orders</h1>
             {orders?.map((o, i) => {
               return (
                 <div className="border shadow">
@@ -61,11 +63,11 @@ const Orders = () => {
                             src={`/api/v1/product/product-photo/${p._id}`}
                             className="card-img-top"
                             alt={p.name}
-                            width="100%"
+                            width="100px"
                             height={"130px"}
                           />
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-8">
                           <p>{p.name}</p>
                           <p>{p.description.substring(0, 30)}</p>
                           <p>Price : {p.price}</p>
@@ -76,11 +78,10 @@ const Orders = () => {
                 </div>
               );
             })}
-          </div>
         </div>
-      </div>
-    </Layouts>
-  );
-};
+    </div>
+   </Layouts>
+  )
+}
 
-export default Orders;
+export default AdminOrders

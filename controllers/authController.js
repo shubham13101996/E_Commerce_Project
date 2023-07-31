@@ -190,6 +190,7 @@ export const updateProfileController = async (req, res) => {
   }
 };
 
+// orders controller
 export const getOrderController = async (req, res) => {
   try {
     const orders = await orderModel
@@ -201,6 +202,24 @@ export const getOrderController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in getting order",
+      error,
+    });
+  }
+};
+
+// get all orders
+export const getAllOrderController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("buyer", "name")
+      .sort({ createdAt: "-1" });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error while getting all orders",
       error,
     });
   }
