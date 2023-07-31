@@ -5,6 +5,7 @@ import {
   validationController,
   forgetPasswordController,
   updateProfileController,
+  getOrderController
 } from "../controllers/authController.js";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -35,4 +36,6 @@ router.get("/admin-auth", Validation, isAdmin, (req, res) => {
 
 // update profile
 router.put("/profile", Validation, updateProfileController);
+
+router.get('/orders',Validation, getOrderController)
 export default router;

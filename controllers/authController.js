@@ -1,6 +1,9 @@
 import { comparePassword, hashPassword } from "../helper/authHelper.js";
+import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const registerController = async (req, res) => {
   try {
@@ -182,6 +185,22 @@ export const updateProfileController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in updating profile",
+      error,
+    });
+  }
+};
+
+export const getOrderController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ buyer: req.user._id })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+    res.json(orders);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error in getting order",
       error,
     });
   }

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
-
+import dotenv from 'dotenv'
+dotenv.config();
 export const Validation = async (req, res, next) => {
   try {
     const decode = jwt.verify(
