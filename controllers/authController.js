@@ -2,8 +2,11 @@ import { comparePassword, hashPassword } from "../helper/authHelper.js";
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+
 import dotenv from "dotenv";
 dotenv.config();
+
+
 
 export const registerController = async (req, res) => {
   try {
@@ -224,3 +227,19 @@ export const getAllOrderController = async (req, res) => {
     });
   }
 };
+
+
+export const orderStatusCOntroller= async(req,res)=>{
+  try {
+    const{orderId} = req.params;
+    const{status}= req.body;
+    const orders = await orderModel.findByIdAndUpdate(orderId,{status},{new:true});
+    res.json(orders)
+
+  } catch (error) {
+    res.status(500).send({
+      success:false,
+      message:"Error while changing status"
+    })
+  }
+}

@@ -6,7 +6,8 @@ import {
   forgetPasswordController,
   updateProfileController,
   getOrderController,
-  getAllOrderController
+  getAllOrderController,
+  orderStatusCOntroller
 } from "../controllers/authController.js";
 import { Validation, isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -42,6 +43,9 @@ router.put("/profile", Validation, updateProfileController);
 router.get('/orders',Validation, getOrderController)
 
 // all orders 
-router.get('/all-orders',Validation, getAllOrderController)
+router.get('/all-orders',Validation, getAllOrderController);
+
+// process status change 
+router.put('/order-status/:orderId',Validation,isAdmin,orderStatusCOntroller)
 
 export default router;
