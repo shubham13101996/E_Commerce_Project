@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "https://e-commerce-app-1f2u.onrender.com",
+  "proxy": "http://localhost:8080",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
