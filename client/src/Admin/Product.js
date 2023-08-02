@@ -23,7 +23,7 @@ const Product = () => {
   }, []);
   return (
     <Layouts title={"Dashboard - All products"} className="container">
-      <div className="row">
+      <div className="row dashboard">
         <div className="col-md-3">
           <AdminMenu />
         </div>

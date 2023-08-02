@@ -14,7 +14,6 @@ import AdminRoutes from "./components/routes/AdminRoutes";
 import AdminDashboard from "./Admin/AdminDashboard";
 import CreateCategory from "./Admin/CreateCategory";
 import CreateProduct from "./Admin/CreateProduct";
-import Users from "./Admin/Users";
 import Profile from "./pages/user/Profile";
 import Orders from "./pages/user/Orders";
 import Product from "./Admin/Product";
@@ -50,7 +49,6 @@ function App() {
 
           <Route path="admin/products" element={<Product />} />
 
-          <Route path="admin/users" element={<Users />} />
           <Route path="admin/orders" element={<AdminOrders />} />
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -5,6 +5,8 @@ import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
+import { AiOutlineReload } from "react-icons/ai";
+
 import { toast } from "react-hot-toast";
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -116,8 +118,15 @@ const Home = () => {
 
   return (
     <Layouts title={"Best Offer - shop now!!"}>
-      <div className="row mt-3">
-        <div className="col-md-2">
+       <img
+        src="/images/banner.png"
+        className="banner-img"
+        alt="bannerimage"
+        width={"100%"}
+      />
+     
+      <div className="container-fluid row mt-3 home-page">
+        <div className="col-md-3 filters">
           <h4 className="text-center"> Filter By Category</h4>
           <div className="d-flex flex-column ">
             {categories?.map((c) => (
@@ -129,6 +138,7 @@ const Home = () => {
               </Checkbox>
             ))}
           </div>
+{/* filter product by price/category  */}
 
           <h4 className="text-center mt-4"> Filter By Price</h4>
           <div className="d-flex flex-column ">
@@ -142,7 +152,7 @@ const Home = () => {
               </Radio.Group>
             }
           </div>
-          <div className="d-flex flex-column m-2">
+          <div className="d-flex flex-column ">
             <button
               className="btn btn-danger"
               onClick={() => window.location.reload()}
@@ -159,28 +169,35 @@ const Home = () => {
               <div
                 className="card m-2"
                 key={product._id}
-                style={{ width: "18rem" }}
+                
               >
                 <img
                   src={`/api/v1/product/product-photo/${product?._id}`}
                   className="card-img-top"
-                  alt="product-photo"
+                  alt={product.name}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text">
-                    {product.description.substring(0, 30)}
+                <div className="card-name-price">
+                    <h5 className="card-title">{product.name}</h5>
+                    <h5 className="card-title card-price">
+                      {product.price.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                    </h5>
+                  </div>
+                  <p className="card-text ">
+                    {product.description.substring(0, 60)}...
                   </p>
-                  <p className="card-text">$ {product.price}</p>
-
+<div className="card-name-price">
                   <button
-                    className="btn btn-primary ms-1"
+                    className="btn btn-info ms-1"
                     onClick={() => navigate(`/product/${product?.slug}`)}
                   >
                     More Details
                   </button>
                   <button
-                    className="btn btn-secondary ms-1"
+                    className="btn btn-dark ms-1"
                     onClick={() => {
                       setCart([...cart, product]);
                       localStorage.setItem(
@@ -193,19 +210,32 @@ const Home = () => {
                     ADD TO CART
                   </button>
                 </div>
+                </div>
               </div>
             ))}
           </div>
           <div className="m-2 p-3">
             {products && products.length < total && (
               <button
-                className="btn btn-warning "
+                className="btn loadmore "
                 onClick={(e) => {
                   e.preventDefault();
                   setPage(page + 1);
                 }}
               >
-                {loading ? "Loading..." : "Load more"}
+                {loading ? (   <>
+              <div className="text-center">
+             <button className="btn btn-primary" type="button" disabled>
+  <span className="spinner-border spinner-border-sm" aria-hidden="true" />
+  <span role="status">Loading...</span>
+</button>
+
+
+              </div>
+            </>) : <>
+                    {" "}
+                    Loadmore <AiOutlineReload />
+                  </>}
               </button>
             )}
           </div>

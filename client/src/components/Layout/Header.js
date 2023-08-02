@@ -23,7 +23,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg fixed-top bg-body-tertiary">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -94,6 +94,8 @@ const Header = () => {
                     <NavLink
                       className="nav-link dropdown-toggle"
                       role="button"
+                      href='#'
+                      style={{border:'none'}}
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
@@ -124,11 +126,13 @@ const Header = () => {
                 </>
               )}
               <li className="nav-item">
-                <Badge count={cart?.length} showZero>
                   <NavLink to="/cart" className="nav-link">
+                  <Badge count={cart?.length} showZero offset={[10,-5]}>
+
                     Cart
+                    </Badge>
                   </NavLink>
-                </Badge>
+                
               </li>
             </ul>
           </div>

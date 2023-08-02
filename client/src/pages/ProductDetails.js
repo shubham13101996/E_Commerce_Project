@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layouts from "../components/Layout/Layouts";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-
+import '../styles/ProductDetailStyles.css'
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [relatedProduct, setRelatedProduct] = useState([]);
@@ -36,17 +36,17 @@ const ProductDetails = () => {
   };
   return (
     <Layouts title={"Page - Product Detail "}>
-      <div className="row container mt-3">
+      <div className="row container product-details">
         <div className="col-md-6">
           <img
             src={`/api/v1/product/product-photo/${product?._id}`}
             className="card-img-top"
             alt={product.name}
-            height={"400px"}
-            width={"300px"}
+            height={"300px"}
+            width={"350px"}
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 product-details-info">
           <h1 className="text-center"> Product Details</h1>
           <h6>Name : {product.name}</h6>
           <h6>Description : {product.description}</h6>
@@ -56,10 +56,10 @@ const ProductDetails = () => {
         </div>
       </div>
       <hr />
-      <div className="row container">
-        <h5 className="">Similar Products</h5>
+      <div className="row container similar-products">
+        <h4 className="">Similar Products ➡️</h4>
         {relatedProduct.length < 1 && (
-          <p className="text-center text-danger"> No Similar Product Found</p>
+          <p className="text-center"> No Similar Product Found</p>
         )}
         <div className="d-flex flex-wrap">
           {relatedProduct?.map((product) => (
@@ -74,19 +74,27 @@ const ProductDetails = () => {
                 alt="product-photo"
               />
               <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
+              <div className="card-name-price">
+                  <h5 className="card-title">{product.name}</h5>
+                  <h5 className="card-title card-price">
+                    {product.price.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </h5>
+                </div>
                 <p className="card-text">
-                  {product.description.substring(0, 30)}
+                  {product.description.substring(0, 30)}...
                 </p>
-                <p className="card-text">$ {product.price}</p>
-
+<div className="card-name-price">
                 <button
-                  className="btn btn-primary ms-1"
+                  className="btn btn-info ms-1"
                   onClick={() => navigate(`/product/${product?.slug}`)}
                 >
                   More Details
                 </button>
                 <button className="btn btn-secondary ms-1">ADD TO CART</button>
+              </div>
               </div>
             </div>
           ))}

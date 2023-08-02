@@ -228,7 +228,7 @@ export const getAllOrderController = async (req, res) => {
   }
 };
 
-
+// order status manage 
 export const orderStatusCOntroller= async(req,res)=>{
   try {
     const{orderId} = req.params;

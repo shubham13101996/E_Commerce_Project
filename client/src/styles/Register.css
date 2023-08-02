@@ -1,11 +1,11 @@
 /* ===================================
 ========= register page  */
 .form-container {
-  margin-top: 0px;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 70.5vh;
+  min-height: 70vh;
   flex-direction: column;
   background-color: #ffdee9;
   background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);

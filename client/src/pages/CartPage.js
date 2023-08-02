@@ -6,6 +6,7 @@ import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Layouts from "../components/Layout/Layouts";
+import "../styles/CartStyles.css";
 
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
@@ -96,7 +97,7 @@ const CartPage = () => {
         </div>
         <div className="container ">
           <div className="row  text-center">
-            <div className="col-md-7  p-1 ml-1">
+            <div className="col-md-7  p-0 m-0">
               {cart?.map((p) => (
                 <div className="row card flex-row" key={p._id}>
                   <div className="col-md-4">
@@ -113,7 +114,7 @@ const CartPage = () => {
                     <p>{p.description.substring(0, 30)}</p>
                     <p>Price : {p.price}</p>
                   </div>
-                  <div className="col-md-4 ">
+                  <div className="col-md-4 cart-remove-btn">
                     <button
                       className="btn btn-danger"
                       onClick={() => removeCartItem(p._id)}
@@ -124,7 +125,7 @@ const CartPage = () => {
                 </div>
               ))}
             </div>
-            <div className="col-md-5 ">
+            <div className="col-md-5 cart-summary ">
               <h2>Cart Summary</h2>
               <p>Total | Checkout | Payment</p>
               <hr />
